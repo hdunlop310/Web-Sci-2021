@@ -1,0 +1,7 @@
+- https://pythondata.com/collecting-storing-tweets-with-python-and-mongodb/
+- https://github.com/SamDelgado/twitter-to-mongo/blob/master/twitter-to-mongo.py
+- https://www.phooky.com/blog/twitter-mining-with-tweepy-and-mongodb/
+- https://developer.twitter.com/en/docs/twitter-api
+- https://marcobonzanini.com/2015/03/02/mining-twitter-data-with-python-part-1/ (this one seems good - got a lot of parts)
+- https://hackernoon.com/scraping-tweet-replies-with-python-and-tweepy-twitter-api-a-step-by-step-guide-z11x3yr8
+- https://docs.tweepy.org/en/latest/auth_tutorial.html
