@@ -1,8 +1,7 @@
-from tweepy.streaming import StreamListener
-from tweepy import OAuthHandler
-from tweepy import Stream
 import tweepy
-from pymongo import MongoClient
+from tweepy import Stream
+from tweepy.streaming import StreamListener
+
 import credentials
 
 '''
@@ -57,3 +56,7 @@ if __name__ == '__main__':
     auth = authorise()
     stream = Stream(auth, listener)
     stream.filter(track=read_keywords())
+
+
+
+#
