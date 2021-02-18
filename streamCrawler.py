@@ -4,18 +4,25 @@ from pymongo import MongoClient
 from datetime import datetime
 import time
 import sys
-
+import credentials
 import emoji
 import re
 
 
 #  please put your credentials below - very important
-consumer_key = ""
-consumer_secret =""
-access_token =""
-access_token_secret =""
+consumer_key = "BVQOvfUQh7ZD7hO4gdZQf41k6yjKYRMT6RJD5B2oZDA3Ir6kO6"
+consumer_secret ="PP8uEqVmOb1ROkueV1zojoQ5Q"
+access_token ="1349715690798915585-1ESgNeWZWCEa5f7ykKjxg231atd0jm"
+access_token_secret ="bmXCFPFfWbIWevrBa8wVKikNvvbfNoAnOOmLh2AjI2ksZ"
 
+auth = tweepy.OAuthHandler(credentials.CONSUMER_KEY, credentials.CONSUMER_SECRET)
+auth.set_access_token(credentials.ACCESS_TOKEN, credentials.ACCESS_TOKEN_SECRET)
+api = tweepy.API(auth)
+if not api:
+    print('Cannot authenticate')
+    print('failed consumer id ----------: ', credentials.CONSUMER_KEY)
 
+'''
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret )
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
@@ -23,7 +30,7 @@ if (not api):
     print('Can\'t authenticate')
     print('failed cosumeer id ----------: ', consumer_key )
 # set DB DETAILS
-
+'''
 
 # this is to setup local Mongodb
 client = MongoClient('127.0.0.1',27017) #is assigned local port
@@ -163,16 +170,16 @@ class StreamListener(tweepy.StreamListener):
         #This is where each tweet is collected
         # let us load the  json data
         t = json.loads(data)
-        #  now let us process the wteet so that we will deal with cleaned and extracted JSON
+        #  now let us process the tweet so that we will deal with cleaned and extracted JSON
         tweet = processTweets(t)
-        # print(tweet)
+        print(tweet)
         # now insert it
         #  for this to work you need to start a local mongodb server
-        # try:
-        #     collection.insert_one(tweet)
-        # except Exception as e:
-        #     print(e)
-            # this means some Mongo db insertion errort
+        try:
+             collection.insert_one(tweet)
+        except Exception as e:
+             print(e)
+            # this means some Mongo db insertion error
 
 
 
