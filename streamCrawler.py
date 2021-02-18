@@ -10,10 +10,10 @@ import re
 
 
 #  please put your credentials below - very important
-consumer_key = "BVQOvfUQh7ZD7hO4gdZQf41k6yjKYRMT6RJD5B2oZDA3Ir6kO6"
-consumer_secret ="PP8uEqVmOb1ROkueV1zojoQ5Q"
-access_token ="1349715690798915585-1ESgNeWZWCEa5f7ykKjxg231atd0jm"
-access_token_secret ="bmXCFPFfWbIWevrBa8wVKikNvvbfNoAnOOmLh2AjI2ksZ"
+consumer_key = ""
+consumer_secret =""
+access_token =""
+access_token_secret =""
 
 auth = tweepy.OAuthHandler(credentials.CONSUMER_KEY, credentials.CONSUMER_SECRET)
 auth.set_access_token(credentials.ACCESS_TOKEN, credentials.ACCESS_TOKEN_SECRET)
