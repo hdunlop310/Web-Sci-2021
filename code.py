@@ -7,6 +7,7 @@ from tweepy import Stream
 from tweepy.streaming import StreamListener
 import re
 import credentials
+import time
 
 
 def get_location():
@@ -16,7 +17,7 @@ def get_location():
 client = MongoClient('127.0.0.1', 27017)  # is assigned local port
 dbName = "TwitterDump"  # set-up a MongoDatabase
 db = client[dbName]
-collName = 'colTest'  # here we create a collection
+collName = 'colTest2'  # here we create a collection
 collection = db[collName]  # This is for the Collection  put in the DB
 
 
@@ -157,15 +158,26 @@ def strip_emoji(text):
 
 class APIStreamListener(StreamListener):
 
+    def __init__(self, time_limit=5):
+        self.start_time = time.time()
+        self.limit = time_limit
+        super(StreamListener, self).__init__()
+
     def on_data(self, raw_data):
-        t = json.loads(raw_data)
-        tweet = process_tweets(t)
-        try:
-            collection.insert_one(tweet)
-        except Exception as e:
-            print(e)
-        print(raw_data)
-        return True
+        count = 0
+        if (time.time() - self.start_time) < self.limit:
+            t = json.loads(raw_data)
+            tweet = process_tweets(t)
+            try:
+                collection.insert_one(tweet)
+                count += 1
+            except Exception as e:
+                print(e)
+            print(tweet)
+            return True
+        else:
+            return False
+
 
     def on_error(self, status_code):
         print(status_code)
@@ -182,4 +194,5 @@ if __name__ == '__main__':
     # db_setup()
     stream = Stream(auth, listener)
     stream.filter(track=read_keywords())
+    print(db.collection.count_documents({}))
 
