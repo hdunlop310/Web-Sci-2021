@@ -12,14 +12,14 @@ Code Not Needed Right Now
 
 def get_location():
     return [-10.392627, 49.681847, 1.055039, 61.122019]  # coords for uk and ireland
-
+'''
 
 client = MongoClient('127.0.0.1', 27017)  # is assigned local port
 dbName = "TwitterDump"  # set-up a MongoDatabase
 db = client[dbName]
 collName = 'colTest'  # here we create a collection
 collection = db[collName]  # This is for the Collection  put in the DB
-'''
+
 
 def read_keywords():
     keywords = []
@@ -60,7 +60,6 @@ def main():
 
 
 if __name__ == '__main__':
-    print('hello')
     listener = APIStreamListener()
     auth = authorise()
     # db_setup()
