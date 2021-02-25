@@ -135,7 +135,21 @@ def strip_emoji(text):
     return new_text
 
 
+class TwitterStreamer():
+    '''
+    Class for streaming & processing live tweets
+    '''
+    def stream_tweets(self):
+        listener = APIStreamListener()
+        auth = authorise()
+        stream = Stream(auth, listener)
+        stream.filter(track=read_keywords())
+
 class APIStreamListener(StreamListener):
+
+    """
+    Basic listener class
+    """
 
     def __init__(self, time_limit=5):
         self.start_time = time.time()
