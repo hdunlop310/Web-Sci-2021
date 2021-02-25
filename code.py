@@ -14,11 +14,16 @@ def get_location():
     return [-10.392627, 49.681847, 1.055039, 61.122019]  # coords for uk and ireland
 
 
-client = MongoClient('127.0.0.1', 27017)  # is assigned local port
-dbName = "TwitterDump"  # set-up a MongoDatabase
-db = client[dbName]
-collName = 'colTest2'  # here we create a collection
-collection = db[collName]  # This is for the Collection  put in the DB
+def db_setup():
+    client = MongoClient('127.0.0.1', 27017)  # is assigned local port
+    global db_name
+    db_name = "TwitterDump"  # set-up a MongoDatabase
+    global db
+    db = client[db_name]
+    global coll_name
+    coll_name = 'colTest2'  # here we create a collection
+    global collection
+    collection = db[coll_name]  # This is for the Collection  put in the DB
 
 
 def read_keywords():
@@ -39,18 +44,12 @@ def authorise():
 
 
 def process_tweets(tweet):
-    #  this module is for cleaning text and also extracting relevant twitter feilds
+    #  this module is for cleaning text and also extracting relevant twitter fields
     # initialise placeholders
-    # place_country_code = '+44'
-    # place_name = 'United Kingdom'
-    # place_country = 'United Kingdom'
-    # place_coordinates = [-10.392627, 49.681847, 1.055039, 61.122019]
-    place_country_code = None
-    place_name = None
-    place_country = None
-    place_coordinates = None
-    source = None
-    exactcoord = None
+    place_country_code = '+44'
+    place_name = 'United Kingdom'
+    place_country = 'United Kingdom'
+    place_coordinates = [-10.392627, 49.681847, 1.055039, 61.122019]
 
     # print(t)
 
@@ -67,62 +66,44 @@ def process_tweets(tweet):
         return None
 
     try:
-        # // deal with truncated
         if tweet['truncated']:
             text = tweet['extended_tweet']['full_text']
         elif text.startswith('RT'):
-            # print(' tweet starts with RT **********')
-            # print(text)
             try:
                 if tweet['retweeted_status']['truncated']:
-                    # print("in .... tweet.retweeted_status.truncated == True ")
                     text = tweet['retweeted_status']['extended_tweet']['full_text']
-                    # print(text)
                 else:
                     text = tweet['retweeted_status']['full_text']
 
             except Exception as e:
-                pass
+                print(e)
 
     except Exception as e:
         print(e)
-    # print(text)
-    text = cleanList(text)
-    # print(text)
+
+    text = clean_list(text)
     entities = tweet['entities']
-    # print(entities)
     mentions = entities['user_mentions']
-    mList = []
+    m_list = []
 
     for x in mentions:
-        # print(x['screen_name'])
-        mList.append(x['screen_name'])
+        m_list.append(x['screen_name'])
     hashtags = entities['hashtags']  # Any hashtags used in the Tweet
-    hList = []
+    h_list = []
     for x in hashtags:
-        # print(x['screen_name'])
-        hList.append(x['text'])
-    # if hashtags == []:
-    #     hashtags =''
-    # else:
-    #     hashtags = str(hashtags).strip('[]')
+        h_list.append(x['text'])
     source = tweet['source']
 
     exactcoord = tweet['coordinates']
     coordinates = None
-    if (exactcoord):
-        # print(exactcoord)
+    if exactcoord:
         coordinates = exactcoord['coordinates']
-        # print(coordinates)
     geoenabled = tweet['user']['geo_enabled']
     location = tweet['user']['location']
 
-    if ((geoenabled) and (text.startswith('RT') == False)):
-        # print(tweet)
-        # sys.exit() # (tweet['geo']):
+    if geoenabled and (not text.startswith('RT')):
         try:
-            if (tweet['place']):
-                # print(tweet['place']
+            if tweet['place']:
                 place_name = tweet['place']['full_name']
                 place_country = tweet['place']['country']
                 place_country_code = tweet['place']['country_code']
@@ -130,20 +111,19 @@ def process_tweets(tweet):
         except Exception as e:
             print(e)
             print(
-                'error from place details - maybe AttributeError: ... NoneType ... object has no attribute ..full_name ...')
+                'error from place details - maybe AttributeError: ... NoneType ... object has no attribute '
+                '..full_name ...')
 
     tweet1 = {'_id': tweet_id, 'date': created, 'username': username, 'text': text, 'geoenabled': geoenabled,
               'coordinates': coordinates, 'location': location, 'place_name': place_name,
               'place_country': place_country, 'country_code': place_country_code,
               'place_coordinates': place_coordinates,
-              'hashtags': hList, 'mentions': mList, 'source': source}
+              'hashtags': h_list, 'mentions': m_list}
 
     return tweet1
 
 
-def cleanList(text):
-    #  copied from web - don't remeber the actual link
-    # remove emoji it works
+def clean_list(text):
     text = strip_emoji(text)
     text.encode("ascii", errors="ignore").decode()
 
@@ -151,7 +131,6 @@ def cleanList(text):
 
 
 def strip_emoji(text):
-    #  copied from web - don't remeber the actual link
     new_text = re.sub(emoji.get_emoji_regexp(), r"", text)
     return new_text
 
@@ -178,7 +157,6 @@ class APIStreamListener(StreamListener):
         else:
             return False
 
-
     def on_error(self, status_code):
         print(status_code)
 
@@ -191,8 +169,7 @@ def main():
 if __name__ == '__main__':
     listener = APIStreamListener()
     auth = authorise()
-    # db_setup()
+    db_setup()
     stream = Stream(auth, listener)
     stream.filter(track=read_keywords())
     print(db.collection.count_documents({}))
-
