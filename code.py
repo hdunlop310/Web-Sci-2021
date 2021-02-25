@@ -47,7 +47,8 @@ def process_tweets(tweet):
     geo_enabled = tweet['user']['geo_enabled']
     location = tweet['user']['location']
 
-    if geo_enabled and not (text.startswith('RT')):
+    if geo_enabled:
+        #and not (text.startswith('RT'))
         try:
 
             if tweet['place']['country'] == 'United Kingdom':
@@ -98,7 +99,7 @@ class APIStreamListener(StreamListener):
     Basic listener class
     """
 
-    def __init__(self, time_limit=5):
+    def __init__(self, time_limit=200):
         self.start_time = time.time()
         self.limit = time_limit
         super(StreamListener, self).__init__()
@@ -114,11 +115,10 @@ class APIStreamListener(StreamListener):
         global db
         db = client[db_name]
         global coll_name
-        coll_name = 'colTest2'  # here we create a collection
+        coll_name = 'colTest'  # here we create a collection
         global collection
         collection = db[coll_name]
 
-        count = 0
         if (time.time() - self.start_time) < self.limit:
             t = json.loads(raw_data)
             t = process_tweets(t)
@@ -126,9 +126,8 @@ class APIStreamListener(StreamListener):
                 if t is None:
                     return True
                 print(t['created_at'])
+                print(t['text'])
                 collection.insert_one(t)
-                count += 1
-
 
             except Exception as e:
                 return True
@@ -143,3 +142,18 @@ class APIStreamListener(StreamListener):
 if __name__ == '__main__':
     twitter_streamer = TwitterStreamer()
     twitter_streamer.stream_tweets()
+    print(db.colTest.count_documents({}))
+
+    retweets = 0
+    #quote_tweets = 0
+    for x in db.colTest.find({}, {'text': 1}):
+        if x['text'][0:2] == 'RT':
+            retweets += 1
+
+        # if x['text'][0] == "'":
+        #     quote_tweets += 1
+
+    #print("Quote tweets = " + str(quote_tweets))
+    print("Retweets = " + str(retweets))
+
+
