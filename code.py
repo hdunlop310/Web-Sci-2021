@@ -135,18 +135,19 @@ def strip_emoji(text):
     return new_text
 
 
-class TwitterStreamer():
-    '''
+class TwitterStreamer:
+    """
     Class for streaming & processing live tweets
-    '''
+    """
+
     def stream_tweets(self):
         listener = APIStreamListener()
-        auth = authorise()
-        stream = Stream(auth, listener)
-        stream.filter(track=read_keywords())
+        streamer = tweepy.Stream(auth=authorise(), listener=listener)
+        print("Tracking: " + str(read_keywords()))
+        streamer.filter(track=read_keywords())
+
 
 class APIStreamListener(StreamListener):
-
     """
     Basic listener class
     """
@@ -156,34 +157,30 @@ class APIStreamListener(StreamListener):
         self.limit = time_limit
         super(StreamListener, self).__init__()
 
+    def on_connect(self):
+        print("You are now connected to the streaming API.")
+
     def on_data(self, raw_data):
-        count = 0
-        if (time.time() - self.start_time) < self.limit:
+        try:
+            client = MongoClient('127.0.0.1', 27017)
+            db_name = "TwitterDump"  # set-up a MongoDatabase
+            db = client[db_name]
+            coll_name = 'colTest2'  # here we create a collection
+            collection = db[coll_name]
+
             t = json.loads(raw_data)
-            tweet = process_tweets(t)
-            try:
-                collection.insert_one(tweet)
-                count += 1
-            except Exception as e:
-                print(e)
-            print(tweet)
-            return True
-        else:
-            return False
+            created_at = t['created_at']
+            print("Tweet collected at " + str(created_at))
+            collection.insert_one(t)
+        except Exception as e:
+            print(e)
+        return True
 
     def on_error(self, status_code):
         print(status_code)
 
 
-def main():
-    keywords = read_keywords()
-    print(keywords)
-
-
 if __name__ == '__main__':
-    listener = APIStreamListener()
-    auth = authorise()
-    db_setup()
-    stream = Stream(auth, listener)
-    stream.filter(track=read_keywords())
-    print(db.collection.count_documents({}))
+    twitter_streamer = TwitterStreamer()
+    twitter_streamer.stream_tweets()
+    # print(db.collection.count_documents({}))
