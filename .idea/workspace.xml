@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="2aef6d43-a342-4d00-8b99-a5013c159e4b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code.py" beforeDir="false" afterPath="$PROJECT_DIR$/code.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keywords.txt" beforeDir="false" afterPath="$PROJECT_DIR$/keywords.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +51,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/streamCrawler.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/code.py" />
   </component>
   <component name="RunManager" selected="Python.code">
     <configuration name="code" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
@@ -43,9 +61,9 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\Heather\Documents\UNI\3rd year\Semester 2\Web-Science\Web-Sci-2021\venv\Scripts\python.exe" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code.py" />
@@ -108,5 +126,31 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="97" y="36" width="1086" height="712" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1614270674724">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state x="97" y="36" width="1086" height="712" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.760@0.0.1280.760" timestamp="1614270674724" />
+    <state x="422" y="136" key="FileChooserDialogImpl" timestamp="1614270672989">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state x="422" y="136" key="FileChooserDialogImpl/0.0.1280.760@0.0.1280.760" timestamp="1614270672989" />
+    <state width="1259" height="189" key="GridCell.Tab.0.bottom" timestamp="1614270922220">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state width="1259" height="189" key="GridCell.Tab.0.bottom/0.0.1280.760@0.0.1280.760" timestamp="1614270922220" />
+    <state width="1259" height="189" key="GridCell.Tab.0.center" timestamp="1614270922219">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state width="1259" height="189" key="GridCell.Tab.0.center/0.0.1280.760@0.0.1280.760" timestamp="1614270922219" />
+    <state width="1259" height="189" key="GridCell.Tab.0.left" timestamp="1614270922219">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state width="1259" height="189" key="GridCell.Tab.0.left/0.0.1280.760@0.0.1280.760" timestamp="1614270922219" />
+    <state width="1259" height="189" key="GridCell.Tab.0.right" timestamp="1614270922219">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state width="1259" height="189" key="GridCell.Tab.0.right/0.0.1280.760@0.0.1280.760" timestamp="1614270922219" />
   </component>
 </project>

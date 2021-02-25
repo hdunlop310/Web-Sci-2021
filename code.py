@@ -107,21 +107,34 @@ class APIStreamListener(StreamListener):
         print("You are now connected to the streaming API.")
 
     def on_data(self, raw_data):
+        global client
         client = MongoClient('127.0.0.1', 27017)
+        global db_name
         db_name = "TwitterDump"  # set-up a MongoDatabase
+        global db
         db = client[db_name]
+        global coll_name
         coll_name = 'colTest2'  # here we create a collection
+        global collection
         collection = db[coll_name]
-        try:
+
+        count = 0
+        if (time.time() - self.start_time) < self.limit:
             t = json.loads(raw_data)
             t = process_tweets(t)
-            if t is None:
-                return True
-            print(t['created_at'])
-            collection.insert_one(t)
+            try:
+                if t is None:
+                    return True
+                print(t['created_at'])
+                collection.insert_one(t)
+                count += 1
 
-        except Exception as e:
-            return True
+
+            except Exception as e:
+                return True
+
+        else:
+            return False
 
     def on_error(self, status_code):
         print(status_code)
