@@ -30,6 +30,8 @@ def authorise():
 
 
 def process_tweets(tweet):
+    global count_rt
+    count_rt = 0
     # Pull important data from the tweet to store in the database.
     try:
         created = tweet['created_at']  # The time tweet was created
@@ -48,7 +50,6 @@ def process_tweets(tweet):
     location = tweet['user']['location']
 
     if geo_enabled:
-        #and not (text.startswith('RT'))
         try:
 
             if tweet['place']['country'] == 'United Kingdom':
@@ -57,17 +58,19 @@ def process_tweets(tweet):
                 place_country_code = tweet['place']['country_code']
                 place_coordinates = tweet['place']['bounding_box']['coordinates']
 
+                if text.startswith('RT'):
+                    count_rt += 1
+
                 tweet1 = {'created_at': created, '_id': tweet_id, 'username': username, 'text': text,
-                  'geoenabled': geo_enabled,
-                  'coordinates': place_coordinates, 'location': location, 'place_name': place_name,
-                  'place_country': place_country, 'country_code': place_country_code,
-                  'retweets': retweets, 'quote tweets': quote}
+                          'geoenabled': geo_enabled,
+                          'coordinates': place_coordinates, 'location': location, 'place_name': place_name,
+                          'place_country': place_country, 'country_code': place_country_code,
+                          'retweets': retweets, 'quote tweets': quote}
 
                 return tweet1
 
         except Exception as e:
             return None
-
 
 
 def clean_list(text):
@@ -99,7 +102,7 @@ class APIStreamListener(StreamListener):
     Basic listener class
     """
 
-    def __init__(self, time_limit=200):
+    def __init__(self, time_limit=60):
         self.start_time = time.time()
         self.limit = time_limit
         super(StreamListener, self).__init__()
@@ -115,7 +118,7 @@ class APIStreamListener(StreamListener):
         global db
         db = client[db_name]
         global coll_name
-        coll_name = 'colTest'  # here we create a collection
+        coll_name = 'March7th'  # here we create a collection
         global collection
         collection = db[coll_name]
 
@@ -142,10 +145,9 @@ class APIStreamListener(StreamListener):
 if __name__ == '__main__':
     twitter_streamer = TwitterStreamer()
     twitter_streamer.stream_tweets()
-    print(db.colTest.count_documents({}))
 
     retweets = 0
-    #quote_tweets = 0
+    # quote_tweets = 0
     for x in db.colTest.find({}, {'text': 1}):
         if x['text'][0:2] == 'RT':
             retweets += 1
@@ -153,7 +155,5 @@ if __name__ == '__main__':
         # if x['text'][0] == "'":
         #     quote_tweets += 1
 
-    #print("Quote tweets = " + str(quote_tweets))
-    print("Retweets = " + str(retweets))
-
-
+    # print("Quote tweets = " + str(quote_tweets))
+    print("Retweets = " + str(count_rt))
