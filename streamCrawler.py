@@ -65,6 +65,12 @@ def processTweets(tweet):
     exactcoord = None
     place = None
 
+    global count_rt
+    count_rt = 0
+
+    global count_tweets
+    count_tweets = 0
+
     # print(t)
 
     # Pull important data from the tweet to store in the database.
@@ -86,6 +92,7 @@ def processTweets(tweet):
         elif (text.startswith('RT') == True):
             # print(' tweet starts with RT **********')
             # print(text)
+            count_rt += 1
             try:
                 if (tweet['retweeted_status']['truncated'] == True):
                     # print("in .... tweet.retweeted_status.truncated == True ")
@@ -150,6 +157,8 @@ def processTweets(tweet):
               'place_country': place_country, 'country_code': place_countrycode, 'place_coordinates': place_coordinates,
               'hashtags': hList, 'mentions': mList, 'source': source}
 
+    count_tweets += 1
+    
     return tweet1
 
 

@@ -29,9 +29,28 @@ def authorise():
     return auth
 
 
+def part_one():
+    retweets = 0
+    quote_tweets = 0
+    for x in db.coltest.find({}, {'text': 1}):
+        if x['text'][0:2] == 'rt':
+            retweets += 1
+
+        if x['text'][0] == "'":
+            quote_tweets += 1
+
+    print(db.March7th.count_documents({}))
+    print("quote tweets = " + str(quote_tweets))
+    print("retweets = " + str(count_rt))
+
+
 def process_tweets(tweet):
     global count_rt
     count_rt = 0
+
+    global count_tweets
+    count_tweets = 0
+
     # Pull important data from the tweet to store in the database.
     try:
         created = tweet['created_at']  # The time tweet was created
@@ -66,6 +85,8 @@ def process_tweets(tweet):
                           'coordinates': place_coordinates, 'location': location, 'place_name': place_name,
                           'place_country': place_country, 'country_code': place_country_code,
                           'retweets': retweets, 'quote tweets': quote}
+
+                count_tweets += 1
 
                 return tweet1
 
@@ -102,7 +123,7 @@ class APIStreamListener(StreamListener):
     Basic listener class
     """
 
-    def __init__(self, time_limit=60):
+    def __init__(self, time_limit=10):
         self.start_time = time.time()
         self.limit = time_limit
         super(StreamListener, self).__init__()
@@ -142,18 +163,23 @@ class APIStreamListener(StreamListener):
         print(status_code)
 
 
+def rest_api():
+    auth = tweepy.OAuthHandler(credentials.CONSUMER_KEY, credentials.CONSUMER_SECRET)
+    auth.set_access_token(credentials.ACCESS_TOKEN, credentials.ACCESS_TOKEN_SECRET)
+    api = tweepy.API(auth)
+
+    user = api.get_user(screen_name='theresa_may')
+    print(user.id)
+
+
 if __name__ == '__main__':
-    twitter_streamer = TwitterStreamer()
-    twitter_streamer.stream_tweets()
+    #twitter_streamer = TwitterStreamer()
+    #twitter_streamer.stream_tweets()
+    #part_one()
+    # print(count_tweets)
+    # print(count_rt)
 
-    retweets = 0
-    # quote_tweets = 0
-    for x in db.colTest.find({}, {'text': 1}):
-        if x['text'][0:2] == 'RT':
-            retweets += 1
+    rest_api()
 
-        # if x['text'][0] == "'":
-        #     quote_tweets += 1
 
-    # print("Quote tweets = " + str(quote_tweets))
-    print("Retweets = " + str(count_rt))
+

@@ -20,7 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2aef6d43-a342-4d00-8b99-a5013c159e4b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/cluster.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code.py" beforeDir="false" afterPath="$PROJECT_DIR$/code.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/streamCrawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/streamCrawler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,9 +53,30 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/code.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/streamCrawler.py" />
   </component>
-  <component name="RunManager" selected="Python.code">
+  <component name="RunManager" selected="Python.cluster">
+    <configuration name="cluster" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Web-Sci-2021" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cluster.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="code" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Web-Sci-2021" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -80,9 +105,9 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\Heather\Documents\UNI\3rd year\Semester 2\Web-Science\Web-Sci-2021\venv\Scripts\python.exe" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/streamCrawler.py" />
@@ -97,7 +122,13 @@
     <list>
       <item itemvalue="Python.code" />
       <item itemvalue="Python.crawler" />
+      <item itemvalue="Python.cluster" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.cluster" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -124,5 +155,51 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="97" y="36" width="1086" height="712" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1615121040832">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state x="97" y="36" width="1086" height="712" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.760@0.0.1280.760" timestamp="1615121040832" />
+    <state x="422" y="136" key="FileChooserDialogImpl" timestamp="1615121039862">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state x="422" y="136" key="FileChooserDialogImpl/0.0.1280.760@0.0.1280.760" timestamp="1615121039862" />
+    <state width="1259" height="189" key="GridCell.Tab.0.bottom" timestamp="1615405822561">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state width="1259" height="189" key="GridCell.Tab.0.bottom/0.0.1280.760@0.0.1280.760" timestamp="1615405822561" />
+    <state width="1259" height="189" key="GridCell.Tab.0.center" timestamp="1615405822560">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state width="1259" height="189" key="GridCell.Tab.0.center/0.0.1280.760@0.0.1280.760" timestamp="1615405822560" />
+    <state width="1259" height="189" key="GridCell.Tab.0.left" timestamp="1615405822560">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state width="1259" height="189" key="GridCell.Tab.0.left/0.0.1280.760@0.0.1280.760" timestamp="1615405822560" />
+    <state width="1259" height="189" key="GridCell.Tab.0.right" timestamp="1615405822561">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state width="1259" height="189" key="GridCell.Tab.0.right/0.0.1280.760@0.0.1280.760" timestamp="1615405822561" />
+    <state width="1259" height="236" key="GridCell.Tab.1.bottom" timestamp="1615124096432">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state width="1259" height="236" key="GridCell.Tab.1.bottom/0.0.1280.760@0.0.1280.760" timestamp="1615124096432" />
+    <state width="1259" height="236" key="GridCell.Tab.1.center" timestamp="1615124096432">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state width="1259" height="236" key="GridCell.Tab.1.center/0.0.1280.760@0.0.1280.760" timestamp="1615124096432" />
+    <state width="1259" height="236" key="GridCell.Tab.1.left" timestamp="1615124096432">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state width="1259" height="236" key="GridCell.Tab.1.left/0.0.1280.760@0.0.1280.760" timestamp="1615124096432" />
+    <state width="1259" height="236" key="GridCell.Tab.1.right" timestamp="1615124096432">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state width="1259" height="236" key="GridCell.Tab.1.right/0.0.1280.760@0.0.1280.760" timestamp="1615124096432" />
+    <state x="234" y="114" key="Vcs.Push.Dialog.v2" timestamp="1615288963519">
+      <screen x="0" y="0" width="1280" height="760" />
+    </state>
+    <state x="234" y="114" key="Vcs.Push.Dialog.v2/0.0.1280.760@0.0.1280.760" timestamp="1615288963519" />
   </component>
 </project>
