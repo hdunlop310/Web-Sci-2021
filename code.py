@@ -86,6 +86,9 @@ def process_tweets(tweet):
                           'place_country': place_country, 'country_code': place_country_code,
                           'retweets': retweets, 'quote tweets': quote}
 
+                tweet1['text'] = clean_list(tweet1['text'])
+                tweet1['text'] = strip_emoji(tweet1['text'])
+
                 count_tweets += 1
 
                 return tweet1
@@ -175,11 +178,13 @@ def rest_api():
 if __name__ == '__main__':
     twitter_streamer = TwitterStreamer()
     twitter_streamer.stream_tweets()
+
     #part_one()
     # print(count_tweets)
     # print(count_rt)
 
     #rest_api()
+
 
 
 
