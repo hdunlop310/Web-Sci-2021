@@ -1,5 +1,4 @@
 import json
-
 import pandas as pd
 from pymongo import MongoClient
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -33,5 +32,42 @@ model = KMeans(n_clusters=true_k, init='k-means++', max_iter=200, n_init=10)
 model.fit(x)
 labels = model.labels_
 tweet_col = pd.DataFrame(list(zip(users, tweets, labels)), columns=['users', 'tweets', 'cluster'])
-print(tweet_col.sort_values(by=['cluster']))
+#print(tweet_col.sort_values(by=['cluster']))
 
+results = {'clusters': labels, 'tweets': tweets}
+
+print(results['tweets'])
+
+cluster0 = db['cluster0']
+cluster1 = db['cluster1']
+cluster2 = db['cluster2']
+cluster3 = db['cluster3']
+cluster4 = db['cluster4']
+cluster5 = db['cluster5']
+cluster6 = db['cluster6']
+
+k = 0
+for i in results['clusters']:
+
+    if i == 0:
+        cluster0.insert_one({'0': results['tweets'][k]})
+
+    if i == 1:
+        cluster1.insert_one({'1': results['tweets'][k]})
+
+    if i == 2:
+        cluster2.insert_one({'2': results['tweets'][k]})
+
+    if i == 3:
+        cluster3.insert_one({'3': results['tweets'][k]})
+
+    if i == 4:
+        cluster4.insert_one({'4': results['tweets'][k]})
+
+    if i == 5:
+        cluster5.insert_one({'5': results['tweets'][k]})
+
+    if i == 6:
+        cluster6.insert_one({'6': results['tweets'][k]})
+
+    k += 1
