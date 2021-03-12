@@ -92,7 +92,7 @@ def processTweets(tweet):
         elif (text.startswith('RT') == True):
             # print(' tweet starts with RT **********')
             # print(text)
-            count_rt += 1
+
             try:
                 if (tweet['retweeted_status']['truncated'] == True):
                     # print("in .... tweet.retweeted_status.truncated == True ")
@@ -156,8 +156,6 @@ def processTweets(tweet):
               'coordinates': coordinates, 'location': location, 'place_name': place_name,
               'place_country': place_country, 'country_code': place_countrycode, 'place_coordinates': place_coordinates,
               'hashtags': hList, 'mentions': mList, 'source': source}
-
-    count_tweets += 1
     
     return tweet1
 
@@ -198,16 +196,15 @@ class StreamListener(tweepy.StreamListener):
 # WORDS = ['manhattan' , 'new york city', 'statue of liberty']
 # LOCATIONS = [ -75,40,-72,42] # new york city
 Loc_UK = [-10.392627, 49.681847, 1.055039, 61.122019]  # UK and Ireland
-Words_UK = ["Boris", "Prime Minister", "Tories", "UK", "London", "England", "Manchester", "Sheffield", "York",
-            "Southampton", \
-            "Wales", "Cardiff", "Swansea", "Banff", "Bristol", "Oxford", "Birmingham", "Scotland", "Glasgow",
-            "Edinburgh", "Dundee", "Aberdeen", "Highlands" \
-                                               "Inverness", "Perth", "St Andrews", "Dumfries", "Ayr" \
-                                                                                               "Ireland", "Dublin",
-            "Cork", "Limerick", "Galway", "Belfast", " Derry", "Armagh" \
-                                                               "BoJo", "Labour", "Liberal Democrats", "SNP",
-            "Conservatives", "First Minister", "Surgeon", "Chancelor" \
-                                                          "Boris Johnson", "BoJo", "Keith Stramer"]
+Words_UK = ['Boris Johnson', 'Coronavirus', 'June 21st', 'Matt Hancock', 'Bojo', 'Kier Starmer', 'COVID-19', 'Tory', 'Conservatives', 'Brexit', 'BBC', 'Deaths', 'Cases', 'R Number', 'Scotland', 'Nicola Sturgeon',
+            'Schools Return', 'Arlene Isabel Foster', 'Mark Drakeford', 'Lockdown', 'Eat Out To Help Out', 'Vaccine', 'Pfizer', 'Strain', 'AstraZeneca', 'Stay At Home', 'Protect the NHS', 'Save Lives', 'NHS',
+            'Daily Briefing', 'Key Workers', 'Doctors', 'Nurses', 'Science', 'Scientists', 'Politics', 'Politicians', '#BorisHasFailedTheUK', '#BorisHasFailedTheNation', 'GCSEs', 'A-Levels', 'Highers', 'Advanced Highers',
+            'National 5s', 'Nursery', 'Primary Schools', 'Secondary Schools', '100,000 deaths', 'Corona', 'COVID', 'Right Wing', 'Left Wing', 'Johnson', 'Sturgeon', 'Starmer', 'Drakeford', 'Foster', 'Arlene',
+            'Health care', 'Biden', 'Trump', '2,511,621 deaths', 'global death rate', 'death rate', 'flatten the curve', 'tested positive', 'tested negative', 'pandemic', 'virus', 'infectious', 'infection', 'symptoms',
+            'persistent cough', 'high temperature', 'fever', 'long covid', 'test kit', 'Moderna', 'South African Variant', 'Kent Variant', 'California Variant', 'spread', 'spreading', 'worldometer', 'infection rate',
+            'NYC Variant', 'New York City Variant', 'Brazil Variant', 'Brazilian Variant', 'Ministers', 'Antibodies', 'Fatality rate', 'Herd immunity', 'Boris', 'Immunocompromised', 'shielding', 'Incubation period',
+            'Isolation', 'social distancing', 'physical distancing', 'PPE', 'Respirator', 'Ventilator', 'ICU', 'Intensive care', 'hospitalisatons', 'anti-vaxxer', 'wear a mask', 'mask', 'anti-masker', 'anti-mask',
+            'SARS', 'MERS', 'SARS-COV', 'Wuhan', '#COVID', '#vaccine', '#corona']
 
 print("Tracking: " + str(Words_UK))
 #  here we ste the listener object

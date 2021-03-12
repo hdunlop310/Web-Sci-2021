@@ -3,6 +3,7 @@ import pandas as pd
 from pymongo import MongoClient
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
+import matplotlib as plt
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -17,9 +18,10 @@ all_stopwords.extend(more_stop_words)
 
 with client:
     db = client["TwitterDump"]
-    collection = db.March7th.find({}, {'username': 1, 'text': 1})
+    collection = db.March7th.find({}, {'username': 1, 'text': 1, 'geoenabled':1})
     tweets = []
     users = []
+    geoenabled = []
 
     for tweet in collection:
         tweet['text'] = tweet['text'].lower()
@@ -29,6 +31,7 @@ with client:
 
         tweets.append(tweet['text'])
         users.append(tweet['username'])
+        geoenabled.append(tweet['geoenabled'])
 
 
 vectorizer = TfidfVectorizer(stop_words={'english'})
@@ -46,11 +49,11 @@ true_k = 5
 model = KMeans(n_clusters=true_k, init='k-means++', max_iter=200, n_init=10)
 model.fit(x)
 labels = model.labels_
-tweet_col = pd.DataFrame(list(zip(users, tweets, labels)), columns=['users', 'tweets', 'cluster'])
+tweet_col = pd.DataFrame(list(zip(users, tweets, geoenabled, labels)), columns=['users', 'tweets', 'geoenabled', 'cluster'])
 #print(tweet_col.sort_values(by=['cluster']))
 
 
-results = {'clusters': labels, 'tweets': tweets}
+results = {'clusters': labels, 'tweets': tweets, 'users': users, 'geoenabled': geoenabled}
 
 cluster0 = db['cluster0']
 cluster1 = db['cluster1']
@@ -64,19 +67,19 @@ k = 0
 for i in results['clusters']:
 
     if i == 0:
-        cluster0.insert_one({'0': results['tweets'][k]})
+        cluster0.insert_one({'username': results['users'][k], 'text': results['tweets'][k], 'geoenabled': results['geoenabled'][k]})
 
     if i == 1:
-        cluster1.insert_one({'1': results['tweets'][k]})
+        cluster1.insert_one({'username': results['users'][k], 'text': results['tweets'][k], 'geoenabled': results['geoenabled'][k]})
 
     if i == 2:
-        cluster2.insert_one({'2': results['tweets'][k]})
+        cluster2.insert_one({'username': results['users'][k], 'text': results['tweets'][k], 'geoenabled': results['geoenabled'][k]})
 
     if i == 3:
-        cluster3.insert_one({'3': results['tweets'][k]})
+        cluster3.insert_one({'username': results['users'][k], 'text': results['tweets'][k], 'geoenabled': results['geoenabled'][k]})
 
     if i == 4:
-        cluster4.insert_one({'4': results['tweets'][k]})
+        cluster4.insert_one({'username': results['users'][k], 'text': results['tweets'][k], 'geoenabled': results['geoenabled'][k]})
 
     k += 1
 
