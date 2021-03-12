@@ -45,7 +45,7 @@ for k in k_vals:
     sq_distance_sum.append(km.inertia_)
 
 
-true_k = 5
+true_k = 7
 model = KMeans(n_clusters=true_k, init='k-means++', max_iter=200, n_init=10)
 model.fit(x)
 labels = model.labels_
@@ -60,8 +60,8 @@ cluster1 = db['cluster1']
 cluster2 = db['cluster2']
 cluster3 = db['cluster3']
 cluster4 = db['cluster4']
-#cluster5 = db['cluster5']
-#cluster6 = db['cluster6']
+cluster5 = db['cluster5']
+cluster6 = db['cluster6']
 
 k = 0
 for i in results['clusters']:
@@ -81,13 +81,10 @@ for i in results['clusters']:
     if i == 4:
         cluster4.insert_one({'username': results['users'][k], 'text': results['tweets'][k], 'geoenabled': results['geoenabled'][k]})
 
-    k += 1
-
-
-'''
     if i == 5:
-        cluster5.insert_one({'5': results['tweets'][k]})
+        cluster5.insert_one({'username': results['users'][k], 'text': results['tweets'][k], 'geoenabled': results['geoenabled'][k]})
 
     if i == 6:
-        cluster6.insert_one({'6': results['tweets'][k]})
-'''
+        cluster6.insert_one({'username': results['users'][k], 'text': results['tweets'][k], 'geoenabled': results['geoenabled'][k]})
+
+    k += 1
