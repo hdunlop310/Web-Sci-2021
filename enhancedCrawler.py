@@ -7,6 +7,11 @@ from tweepy.streaming import StreamListener
 import re
 import credentials
 import time
+import datetime, time
+
+auth = tweepy.OAuthHandler(credentials.CONSUMER_KEY, credentials.CONSUMER_SECRET)
+auth.set_access_token(credentials.ACCESS_TOKEN, credentials.ACCESS_TOKEN_SECRET)
+api = tweepy.API(auth)
 
 
 def get_location():
@@ -126,7 +131,7 @@ class APIStreamListener(StreamListener):
     Basic listener class
     """
 
-    def __init__(self, time_limit=1200):
+    def __init__(self, time_limit=100):
         self.start_time = time.time()
         self.limit = time_limit
         super(StreamListener, self).__init__()
@@ -166,13 +171,55 @@ class APIStreamListener(StreamListener):
         print(status_code)
 
 
+def get_user(api, username):
+    page = 1
+    old_tweet = False
+
+    client = MongoClient('127.0.0.1', 27017)
+    db_name = "TwitterDump"  # set-up a MongoDatabase
+    db = client[db_name]
+    coll_name = 'users'  # here we create a collection
+    twitter_users = db[coll_name]
+
+    while True:
+        tweets = api.user_timeline(username, page=page)
+
+        for tweet in tweets:
+            if (datetime.datetime.now() - tweet.created_at).days < 3:
+                #t = json.loads(tweet)
+                #t = process_tweets(t)
+                print(tweet.screen_name + " " + tweet.text)
+
+                try:
+                    twitter_users.insert_one(tweet)
+
+                except Exception as e:
+                    return True
+
+            else:
+                old_tweet = True
+                return
+
+        if not old_tweet:
+            page += 1
+            time.sleep(500)
+
+
+
+
 if __name__ == '__main__':
-    twitter_streamer = TwitterStreamer()
-    twitter_streamer.stream_tweets()
+    #twitter_streamer = TwitterStreamer()
+    #twitter_streamer.stream_tweets()
 
     #part_one()
     # print(count_tweets)
     # print(count_rt)
+
+    get_user(api, "NicolaSturgeon ")
+    get_user(api, "JeaneF1MSP")
+    get_user(api, "MattHancock")
+    get_user(api, "uksciencechief")
+    get_user(api, "PHE_uk")
 
 
 
