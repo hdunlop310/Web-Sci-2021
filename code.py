@@ -126,7 +126,7 @@ class APIStreamListener(StreamListener):
     Basic listener class
     """
 
-    def __init__(self, time_limit=1200):
+    def __init__(self, time_limit=3600):
         self.start_time = time.time()
         self.limit = time_limit
         super(StreamListener, self).__init__()
@@ -142,7 +142,7 @@ class APIStreamListener(StreamListener):
         global db
         db = client[db_name]
         global coll_name
-        coll_name = 'March11th'  # here we create a collection
+        coll_name = 'March18th'  # here we create a collection
         global collection
         collection = db[coll_name]
 

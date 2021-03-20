@@ -20,9 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2aef6d43-a342-4d00-8b99-a5013c159e4b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/enhancedCrawler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/~$Report.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Report.docx" beforeDir="false" afterPath="$PROJECT_DIR$/Report.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code.py" beforeDir="false" afterPath="$PROJECT_DIR$/code.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/geolocation.py" beforeDir="false" afterPath="$PROJECT_DIR$/geolocation.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +64,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/geolocation.py" />
   </component>
-  <component name="RunManager" selected="Python.enhancedCrawler">
+  <component name="RunManager" selected="Python.geolocation">
     <configuration name="cluster" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Web-Sci-2021" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -193,8 +196,8 @@
       <item itemvalue="Python.crawler" />
       <item itemvalue="Python.geolocation" />
       <item itemvalue="Python.cluster" />
-      <item itemvalue="Python.partOne" />
       <item itemvalue="Python.enhancedCrawler" />
+      <item itemvalue="Python.partOne" />
     </list>
     <recent_temporary>
       <list>
@@ -229,23 +232,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state width="1259" height="189" key="GridCell.Tab.0.bottom" timestamp="1616081926841">
-      <screen x="0" y="0" width="1280" height="760" />
-    </state>
-    <state width="1259" height="189" key="GridCell.Tab.0.bottom/0.0.1280.760@0.0.1280.760" timestamp="1616081926841" />
-    <state width="1259" height="189" key="GridCell.Tab.0.center" timestamp="1616081926841">
-      <screen x="0" y="0" width="1280" height="760" />
-    </state>
-    <state width="1259" height="189" key="GridCell.Tab.0.center/0.0.1280.760@0.0.1280.760" timestamp="1616081926841" />
-    <state width="1259" height="189" key="GridCell.Tab.0.left" timestamp="1616081926841">
-      <screen x="0" y="0" width="1280" height="760" />
-    </state>
-    <state width="1259" height="189" key="GridCell.Tab.0.left/0.0.1280.760@0.0.1280.760" timestamp="1616081926841" />
-    <state width="1259" height="189" key="GridCell.Tab.0.right" timestamp="1616081926841">
-      <screen x="0" y="0" width="1280" height="760" />
-    </state>
-    <state width="1259" height="189" key="GridCell.Tab.0.right/0.0.1280.760@0.0.1280.760" timestamp="1616081926841" />
   </component>
 </project>
