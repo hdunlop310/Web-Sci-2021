@@ -11,22 +11,22 @@ def part_one():
     geo_tagged = 0
     location_obj = 0
 
-    for x in db.colTest.find({}, {'text': 1}):
+    for x in db.March18th_NoneE.find({}, {'text': 1}):
         if x['text'][0:2] == 'RT':
             count_rt += 1
 
         if x['text'][0] == "'":
             quote_tweets += 1
 
-    for x in db.colTest.find({}, {'geoenabled': 1}):
+    for x in db.March18th_NoneE.find({}, {'geoenabled': 1}):
         if x['geoenabled']:
             geo_tagged += 1
 
-    for x in db.colTest.find({}, {'location': 1}):
+    for x in db.March18th_NoneE.find({}, {'location': 1}):
         if x['location'] != None:
             location_obj += 1
 
-    print(db.colTest.count_documents({}))
+    print(db.March18th.count_documents({}))
     print("quote tweets = " + str(quote_tweets))
     print("retweets = " + str(count_rt))
     print("geotagged = " + str(geo_tagged))

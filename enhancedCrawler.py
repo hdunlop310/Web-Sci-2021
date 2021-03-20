@@ -6,12 +6,7 @@ from pymongo import MongoClient
 from tweepy.streaming import StreamListener
 import re
 import credentials
-import time
 import datetime, time
-
-auth = tweepy.OAuthHandler(credentials.CONSUMER_KEY, credentials.CONSUMER_SECRET)
-auth.set_access_token(credentials.ACCESS_TOKEN, credentials.ACCESS_TOKEN_SECRET)
-api = tweepy.API(auth)
 
 
 def get_location():
@@ -24,7 +19,7 @@ def read_keywords():
     return keywords
 
 
-def authorise():
+def stream_authorise():
     auth = tweepy.OAuthHandler(credentials.CONSUMER_KEY, credentials.CONSUMER_SECRET)
     auth.set_access_token(credentials.ACCESS_TOKEN, credentials.ACCESS_TOKEN_SECRET)
     api = tweepy.API(auth)
@@ -33,20 +28,15 @@ def authorise():
         print('failed consumer id ----------: ', credentials.CONSUMER_KEY)
     return auth
 
+def rest_authorise():
+    auth = tweepy.OAuthHandler(credentials.CONSUMER_KEY, credentials.CONSUMER_SECRET)
+    auth.set_access_token(credentials.ACCESS_TOKEN, credentials.ACCESS_TOKEN_SECRET)
+    api = tweepy.API(auth)
+    if not api:
+        print('Cannot authenticate')
+        print('failed consumer id ----------: ', credentials.CONSUMER_KEY)
+    return api
 
-def part_one():
-    retweets = 0
-    quote_tweets = 0
-    for x in db.coltest.find({}, {'text': 1}):
-        if x['text'][0:2] == 'rt':
-            retweets += 1
-
-        if x['text'][0] == "'":
-            quote_tweets += 1
-
-    print(db.March7th.count_documents({}))
-    print("quote tweets = " + str(quote_tweets))
-    print("retweets = " + str(count_rt))
 
 
 def process_tweets(tweet):
@@ -121,7 +111,7 @@ class TwitterStreamer:
 
     def stream_tweets(self):
         listener = APIStreamListener()
-        streamer = tweepy.Stream(auth=authorise(), listener=listener)
+        streamer = tweepy.Stream(auth=stream_authorise(), listener=listener)
         print("Tracking: " + str(read_keywords()))
         streamer.filter(track=read_keywords())
 
@@ -131,7 +121,7 @@ class APIStreamListener(StreamListener):
     Basic listener class
     """
 
-    def __init__(self, time_limit=100):
+    def __init__(self, time_limit=10):
         self.start_time = time.time()
         self.limit = time_limit
         super(StreamListener, self).__init__()
@@ -140,15 +130,10 @@ class APIStreamListener(StreamListener):
         print("You are now connected to the streaming API.")
 
     def on_data(self, raw_data):
-        global client
         client = MongoClient('127.0.0.1', 27017)
-        global db_name
         db_name = "TwitterDump"  # set-up a MongoDatabase
-        global db
         db = client[db_name]
-        global coll_name
-        coll_name = 'March11th'  # here we create a collection
-        global collection
+        coll_name = 'Test'  # here we create a collection
         collection = db[coll_name]
 
         if (time.time() - self.start_time) < self.limit:
@@ -171,6 +156,8 @@ class APIStreamListener(StreamListener):
         print(status_code)
 
 
+
+
 def get_user(api, username):
     page = 1
     old_tweet = False
@@ -178,20 +165,18 @@ def get_user(api, username):
     client = MongoClient('127.0.0.1', 27017)
     db_name = "TwitterDump"  # set-up a MongoDatabase
     db = client[db_name]
-    coll_name = 'users'  # here we create a collection
-    twitter_users = db[coll_name]
+    coll_name = 'Test_users'  # here we create a collection
+    collection = db[coll_name]
 
     while True:
         tweets = api.user_timeline(username, page=page)
 
         for tweet in tweets:
-            if (datetime.datetime.now() - tweet.created_at).days < 3:
-                #t = json.loads(tweet)
-                #t = process_tweets(t)
-                print(tweet.screen_name + " " + tweet.text)
+            if (datetime.datetime.now() - tweet.created_at).days <= 1:
+                print(tweet.user.name + ": " + tweet.text)
 
                 try:
-                    twitter_users.insert_one(tweet)
+                    collection.insert_one(tweet)
 
                 except Exception as e:
                     return True
@@ -208,18 +193,14 @@ def get_user(api, username):
 
 
 if __name__ == '__main__':
-    #twitter_streamer = TwitterStreamer()
-    #twitter_streamer.stream_tweets()
+    twitter_streamer = TwitterStreamer()
+    twitter_streamer.stream_tweets()
 
-    #part_one()
-    # print(count_tweets)
-    # print(count_rt)
-
-    get_user(api, "NicolaSturgeon ")
-    get_user(api, "JeaneF1MSP")
-    get_user(api, "MattHancock")
-    get_user(api, "uksciencechief")
-    get_user(api, "PHE_uk")
+    get_user(rest_authorise(), "NicolaSturgeon ")
+    get_user(rest_authorise(), "JeaneF1MSP")
+    get_user(rest_authorise(), "MattHancock")
+    get_user(rest_authorise(), "uksciencechief")
+    get_user(rest_authorise(), "PHE_uk")
 
 
 
