@@ -20,12 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2aef6d43-a342-4d00-8b99-a5013c159e4b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/csv-plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-plugin.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/~$Report.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cluster.py" beforeDir="false" afterPath="$PROJECT_DIR$/cluster.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code.py" beforeDir="false" afterPath="$PROJECT_DIR$/code.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/enhancedCrawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/enhancedCrawler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/partOne.py" beforeDir="false" afterPath="$PROJECT_DIR$/partOne.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/streamCrawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/streamCrawler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,14 +63,14 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/geolocation.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/partOne.py" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\alana\Documents\Group Project\Web-Sci-2021" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.partOne">
+  <component name="RunManager" selected="Python.code">
     <configuration name="cluster" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Web-Sci-2021" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -197,16 +197,16 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="partOne" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="partOne" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Web-Sci-2021" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\Heather\Documents\UNI\3rd year\Semester 2\Web-Science\Web-Sci-2021\venv\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/partOne.py" />
@@ -251,9 +251,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.cluster" />
         <item itemvalue="Python.partOne" />
         <item itemvalue="Python.partThree" />
-        <item itemvalue="Python.cluster" />
         <item itemvalue="Python.jsonfile" />
         <item itemvalue="Python.enhancedCrawler" />
       </list>
@@ -284,23 +284,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state width="1259" height="218" key="GridCell.Tab.0.bottom" timestamp="1616327363078">
-      <screen x="0" y="0" width="1280" height="760" />
-    </state>
-    <state width="1259" height="218" key="GridCell.Tab.0.bottom/0.0.1280.760@0.0.1280.760" timestamp="1616327363078" />
-    <state width="1259" height="218" key="GridCell.Tab.0.center" timestamp="1616327363077">
-      <screen x="0" y="0" width="1280" height="760" />
-    </state>
-    <state width="1259" height="218" key="GridCell.Tab.0.center/0.0.1280.760@0.0.1280.760" timestamp="1616327363077" />
-    <state width="1259" height="218" key="GridCell.Tab.0.left" timestamp="1616327363077">
-      <screen x="0" y="0" width="1280" height="760" />
-    </state>
-    <state width="1259" height="218" key="GridCell.Tab.0.left/0.0.1280.760@0.0.1280.760" timestamp="1616327363077" />
-    <state width="1259" height="218" key="GridCell.Tab.0.right" timestamp="1616327363078">
-      <screen x="0" y="0" width="1280" height="760" />
-    </state>
-    <state width="1259" height="218" key="GridCell.Tab.0.right/0.0.1280.760@0.0.1280.760" timestamp="1616327363078" />
   </component>
 </project>

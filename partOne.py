@@ -14,33 +14,33 @@ def part_one():
     videos = 0
     images = 0
 
-    for x in db.partOne.find({}, {'text': 1}):
+    for x in db.cluster0.find({}, {'text': 1}):
         if x['text'][0:2] == 'RT':
             count_rt += 1
 
-        if x['text'][0] == "'":
+        if x['text'][0:1] == "'":
             quote_tweets += 1
 
-    for x in db.partOne.find({}, {'geoenabled': 1}):
+    for x in db.cluster0.find({}, {'geoenabled': 1}):
         if x['geoenabled']:
             geo_tagged += 1
 
-    for x in db.spartOne.find({}, {'location': 1}):
+    for x in db.cluster0.find({}, {'location': 1}):
         if x['location'] != None:
             location_obj += 1
 
-    for x in db.partOne.find({}, {'verified': 1}):
+    for x in db.cluster0.find({}, {'verified': 1}):
         if x['verified'] == True:
             verified += 1
 
-    for x in db.partOne.find({}, {'media': 1}):
+    for x in db.cluster0.find({}, {'media': 1}):
         for url in x['media']:
             if "youtube" in url['display_url']:
                 videos += 1
             else:
                 images += 1
 
-    print(db.partOne.count_documents({}))
+    print(db.cluster0.count_documents({}))
     print("quote tweets = " + str(quote_tweets))
     print("retweets = " + str(count_rt))
     print("geotagged = " + str(geo_tagged))

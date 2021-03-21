@@ -18,10 +18,13 @@ all_stopwords.extend(more_stop_words)
 
 with client:
     db = client["TwitterDump"]
-    collection = db.March18th.find({}, {'username': 1, 'text': 1, 'geoenabled':1})
+    collection = db.March21st.find({}, {'username': 1, 'text': 1, 'geoenabled':1, 'location':1, 'verified':1, 'media':1})
     tweets = []
     users = []
     geoenabled = []
+    locations = []
+    verified = []
+    media = []
 
     for tweet in collection:
         tweet['text'] = tweet['text'].lower()
@@ -32,6 +35,9 @@ with client:
         tweets.append(tweet['text'])
         users.append(tweet['username'])
         geoenabled.append(tweet['geoenabled'])
+        locations.append(tweet['location'])
+        verified.append(tweet['verified'])
+        media.append(tweet['media'])
 
 
 vectorizer = TfidfVectorizer(stop_words={'english'})
@@ -57,11 +63,11 @@ true_k = 5
 model = KMeans(n_clusters=true_k, init='k-means++', max_iter=200, n_init=10)
 model.fit(x)
 labels = model.labels_
-tweet_col = pd.DataFrame(list(zip(users, tweets, geoenabled, labels)), columns=['users', 'tweets', 'geoenabled', 'cluster'])
+tweet_col = pd.DataFrame(list(zip(users, tweets, geoenabled, locations, verified, media, labels)), columns=['users', 'tweets', 'geoenabled', 'locations', 'verified', 'media', 'cluster'])
 print(tweet_col.sort_values(by=['cluster']))
 
 
-results = {'clusters': labels, 'tweets': tweets, 'users': users, 'geoenabled': geoenabled}
+results = {'clusters': labels, 'tweets': tweets, 'users': users, 'geoenabled': geoenabled, 'locations': locations, 'verified': verified, 'media': media}
 
 cluster0 = db['cluster0']
 cluster1 = db['cluster1']
@@ -75,19 +81,19 @@ k = 0
 for i in results['clusters']:
 
     if i == 0:
-        cluster0.insert_one({'username': results['users'][k], 'text': results['tweets'][k], 'geoenabled': results['geoenabled'][k]})
+        cluster0.insert_one({'username': results['users'][k], 'text': results['tweets'][k], 'geoenabled': results['geoenabled'][k], 'location': results['locations'][k], 'verified':results['verified'][k], 'media': results['media'][k]})
 
     if i == 1:
-        cluster1.insert_one({'username': results['users'][k], 'text': results['tweets'][k], 'geoenabled': results['geoenabled'][k]})
+        cluster1.insert_one({'username': results['users'][k], 'text': results['tweets'][k], 'geoenabled': results['geoenabled'][k], 'location': results['locations'][k], 'verified':results['verified'][k], 'media': results['media'][k]})
 
     if i == 2:
-        cluster2.insert_one({'username': results['users'][k], 'text': results['tweets'][k], 'geoenabled': results['geoenabled'][k]})
+        cluster2.insert_one({'username': results['users'][k], 'text': results['tweets'][k], 'geoenabled': results['geoenabled'][k], 'location': results['locations'][k], 'verified':results['verified'][k], 'media': results['media'][k]})
 
     if i == 3:
-        cluster3.insert_one({'username': results['users'][k], 'text': results['tweets'][k], 'geoenabled': results['geoenabled'][k]})
+        cluster3.insert_one({'username': results['users'][k], 'text': results['tweets'][k], 'geoenabled': results['geoenabled'][k], 'location': results['locations'][k], 'verified':results['verified'][k], 'media': results['media'][k]})
 
     if i == 4:
-        cluster4.insert_one({'username': results['users'][k], 'text': results['tweets'][k], 'geoenabled': results['geoenabled'][k]})
+        cluster4.insert_one({'username': results['users'][k], 'text': results['tweets'][k], 'geoenabled': results['geoenabled'][k], 'location': results['locations'][k], 'verified':results['verified'][k], 'media': results['media'][k]})
 
     k += 1
 '''

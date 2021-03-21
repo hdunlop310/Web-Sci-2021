@@ -30,53 +30,111 @@ def authorise():
 
 
 def process_tweets(tweet):
+    #  this module is for cleaning text and also extracting relevant twitter feilds
+    # initialise placeholders
+    place_countrycode = None
+    place_name = None
+    place_country = None
+    place_coordinates = None
+    source = None
+    exactcoord = None
+    place = None
+
+    global count_rt
+    count_rt = 0
+
+    global count_tweets
+    count_tweets = 0
+
+    # print(t)
 
     # Pull important data from the tweet to store in the database.
     try:
-        created = tweet['created_at']  # The time tweet was created
+        created = tweet['created_at']
         tweet_id = tweet['id_str']  # The Tweet ID from Twitter in string format
         username = tweet['user']['screen_name']  # The username of the Tweet author
+        # followers = t['user']['followers_count']  # The number of followers the Tweet author has
         text = tweet['text']  # The entire body of the Tweet
-        retweets = tweet['retweet_count']
-        quote = tweet['quote_count']
         verified = tweet['user']['verified']
         media = tweet['entities']['urls']
-
     except Exception as e:
         # if this happens, there is something wrong with JSON, so ignore this tweet
+        print(e)
         return None
 
+    try:
+        # // deal with truncated
+        if (tweet['truncated'] == True):
+            text = tweet['extended_tweet']['full_text']
+        elif (text.startswith('RT') == True):
+            # print(' tweet starts with RT **********')
+            # print(text)
+
+            try:
+                if (tweet['retweeted_status']['truncated'] == True):
+                    # print("in .... tweet.retweeted_status.truncated == True ")
+                    text = tweet['retweeted_status']['extended_tweet']['full_text']
+                    # print(text)
+                else:
+                    text = tweet['retweeted_status']['full_text']
+
+            except Exception as e:
+                pass
+
+    except Exception as e:
+        print(e)
+    # print(text)
     text = clean_list(text)
-    geo_enabled = tweet['user']['geo_enabled']
+    # print(text)
+    entities = tweet['entities']
+    # print(entities)
+    mentions = entities['user_mentions']
+    mList = []
+
+    for x in mentions:
+        # print(x['screen_name'])
+        mList.append(x['screen_name'])
+    hashtags = entities['hashtags']  # Any hashtags used in the Tweet
+    hList = []
+    for x in hashtags:
+        # print(x['screen_name'])
+        hList.append(x['text'])
+    # if hashtags == []:
+    #     hashtags =''
+    # else:
+    #     hashtags = str(hashtags).strip('[]')
+    source = tweet['source']
+
+    exactcoord = tweet['coordinates']
+    coordinates = None
+    if (exactcoord):
+        # print(exactcoord)
+        coordinates = exactcoord['coordinates']
+        # print(coordinates)
+    geoenabled = tweet['user']['geo_enabled']
     location = tweet['user']['location']
 
-    if geo_enabled:
+    if ((geoenabled) and (text.startswith('RT') == False)):
+        # print(tweet)
+        # sys.exit() # (tweet['geo']):
         try:
-
-            if tweet['place']['country'] == 'United Kingdom':
+            if (tweet['place']):
+                # print(tweet['place'])
                 place_name = tweet['place']['full_name']
                 place_country = tweet['place']['country']
-                place_country_code = tweet['place']['country_code']
+                place_countrycode = tweet['place']['country_code']
                 place_coordinates = tweet['place']['bounding_box']['coordinates']
-
-                if text.startswith('RT'):
-                    count_rt += 1
-
-                tweet1 = {'created_at': created, '_id': tweet_id, 'username': username, 'text': text,
-                          'geoenabled': geo_enabled,
-                          'coordinates': place_coordinates, 'location': location, 'place_name': place_name,
-                          'place_country': place_country, 'country_code': place_country_code,
-                          'retweets': retweets, 'quote tweets': quote, 'verified': verified, 'media': media }
-
-                tweet1['text'] = clean_list(tweet1['text'])
-                tweet1['text'] = strip_emoji(tweet1['text'])
-
-                count_tweets += 1
-
-                return tweet1
-
         except Exception as e:
-            return None
+            print(e)
+            print(
+                'error from place details - maybe AttributeError: ... NoneType ... object has no attribute ..full_name ...')
+
+    tweet1 = {'_id': tweet_id, 'date': created, 'username': username, 'text': text, 'geoenabled': geoenabled,
+              'coordinates': coordinates, 'location': location, 'place_name': place_name,
+              'place_country': place_country, 'country_code': place_countrycode, 'place_coordinates': place_coordinates,
+              'hashtags': hList, 'mentions': mList, 'source': source, 'verified': verified, 'media': media}
+
+    return tweet1
 
 
 def clean_list(text):
@@ -100,7 +158,7 @@ class TwitterStreamer:
         listener = APIStreamListener()
         streamer = tweepy.Stream(auth=authorise(), listener=listener)
         print("Tracking: " + str(read_keywords()))
-        streamer.filter(track=read_keywords())
+        streamer.filter(locations=[-10.392627, 49.681847, 1.055039, 61.122019], track=read_keywords(), languages=['en'])
 
 
 class APIStreamListener(StreamListener):
@@ -108,7 +166,7 @@ class APIStreamListener(StreamListener):
     Basic listener class
     """
 
-    def __init__(self, time_limit=3600):
+    def __init__(self, time_limit=7200):
         self.start_time = time.time()
         self.limit = time_limit
         super(StreamListener, self).__init__()
@@ -120,7 +178,7 @@ class APIStreamListener(StreamListener):
         client = MongoClient('127.0.0.1', 27017)
         db_name = "TwitterDump"  # set-up a MongoDatabase
         db = client[db_name]
-        coll_name = 'March21th'  # here we create a collection
+        coll_name = 'March21New'  # here we create a collection
         collection = db[coll_name]
 
         if (time.time() - self.start_time) < self.limit:
@@ -129,8 +187,7 @@ class APIStreamListener(StreamListener):
             try:
                 if t is None:
                     return True
-                print(t['created_at'])
-                print(t['text'])
+                print(t)
                 collection.insert_one(t)
 
             except Exception as e:
