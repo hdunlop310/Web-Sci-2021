@@ -10,27 +10,44 @@ def part_one():
     quote_tweets = 0
     geo_tagged = 0
     location_obj = 0
+    verified = 0
+    videos = 0
+    images = 0
 
-    for x in db.March18th_NoneE.find({}, {'text': 1}):
+    for x in db.partOne.find({}, {'text': 1}):
         if x['text'][0:2] == 'RT':
             count_rt += 1
 
         if x['text'][0] == "'":
             quote_tweets += 1
 
-    for x in db.March18th_NoneE.find({}, {'geoenabled': 1}):
+    for x in db.partOne.find({}, {'geoenabled': 1}):
         if x['geoenabled']:
             geo_tagged += 1
 
-    for x in db.March18th_NoneE.find({}, {'location': 1}):
+    for x in db.spartOne.find({}, {'location': 1}):
         if x['location'] != None:
             location_obj += 1
 
-    print(db.March18th.count_documents({}))
+    for x in db.partOne.find({}, {'verified': 1}):
+        if x['verified'] == True:
+            verified += 1
+
+    for x in db.partOne.find({}, {'media': 1}):
+        for url in x['media']:
+            if "youtube" in url['display_url']:
+                videos += 1
+            else:
+                images += 1
+
+    print(db.partOne.count_documents({}))
     print("quote tweets = " + str(quote_tweets))
     print("retweets = " + str(count_rt))
     print("geotagged = " + str(geo_tagged))
     print("location objects = " + str(location_obj))
+    print("verified = " + str(verified))
+    print("videos = " + str(videos))
+    print("images = " + str(images))
 
 
 if __name__ == '__main__':

@@ -54,6 +54,8 @@ def process_tweets(tweet):
         text = tweet['text']  # The entire body of the Tweet
         retweets = tweet['retweet_count']
         quote = tweet['quote_count']
+        verified = tweet['user']['verified']
+        media = tweet['entities']['urls']
 
     except Exception as e:
         # if this happens, there is something wrong with JSON, so ignore this tweet
@@ -79,7 +81,7 @@ def process_tweets(tweet):
                           'geoenabled': geo_enabled,
                           'coordinates': place_coordinates, 'location': location, 'place_name': place_name,
                           'place_country': place_country, 'country_code': place_country_code,
-                          'retweets': retweets, 'quote tweets': quote}
+                          'retweets': retweets, 'quote tweets': quote, 'verified': verified, 'media': media}
 
                 tweet1['text'] = clean_list(tweet1['text'])
                 tweet1['text'] = strip_emoji(tweet1['text'])

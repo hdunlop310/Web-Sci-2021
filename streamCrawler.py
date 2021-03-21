@@ -35,7 +35,7 @@ if (not api):
 client = MongoClient('127.0.0.1', 27017)  # is assigned local port
 dbName = "TwitterDump"  # set-up a MongoDatabase
 db = client[dbName]
-collName = 'sectionOne'  # here we create a collection
+collName = 'partOne'  # here we create a collection
 collection = db[collName]  # This is for the Collection  put in the DB
 
 
@@ -80,6 +80,8 @@ def processTweets(tweet):
         username = tweet['user']['screen_name']  # The username of the Tweet author
         # followers = t['user']['followers_count']  # The number of followers the Tweet author has
         text = tweet['text']  # The entire body of the Tweet
+        verified = tweet['user']['verified']
+        media = tweet['entities']['urls']
     except Exception as e:
         # if this happens, there is something wrong with JSON, so ignore this tweet
         print(e)
@@ -155,7 +157,7 @@ def processTweets(tweet):
     tweet1 = {'_id': tweet_id, 'date': created, 'username': username, 'text': text, 'geoenabled': geoenabled,
               'coordinates': coordinates, 'location': location, 'place_name': place_name,
               'place_country': place_country, 'country_code': place_countrycode, 'place_coordinates': place_coordinates,
-              'hashtags': hList, 'mentions': mList, 'source': source}
+              'hashtags': hList, 'mentions': mList, 'source': source, 'verified': verified, 'media': media}
     
     return tweet1
 

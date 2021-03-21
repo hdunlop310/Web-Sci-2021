@@ -29,27 +29,7 @@ def authorise():
     return auth
 
 
-def part_one():
-    retweets = 0
-    quote_tweets = 0
-    for x in db.coltest.find({}, {'text': 1}):
-        if x['text'][0:2] == 'rt':
-            retweets += 1
-
-        if x['text'][0] == "'":
-            quote_tweets += 1
-
-    print(db.March7th.count_documents({}))
-    print("quote tweets = " + str(quote_tweets))
-    print("retweets = " + str(count_rt))
-
-
 def process_tweets(tweet):
-    global count_rt
-    count_rt = 0
-
-    global count_tweets
-    count_tweets = 0
 
     # Pull important data from the tweet to store in the database.
     try:
@@ -59,6 +39,8 @@ def process_tweets(tweet):
         text = tweet['text']  # The entire body of the Tweet
         retweets = tweet['retweet_count']
         quote = tweet['quote_count']
+        verified = tweet['user']['verified']
+        media = tweet['entities']['urls']
 
     except Exception as e:
         # if this happens, there is something wrong with JSON, so ignore this tweet
@@ -84,7 +66,7 @@ def process_tweets(tweet):
                           'geoenabled': geo_enabled,
                           'coordinates': place_coordinates, 'location': location, 'place_name': place_name,
                           'place_country': place_country, 'country_code': place_country_code,
-                          'retweets': retweets, 'quote tweets': quote}
+                          'retweets': retweets, 'quote tweets': quote, 'verified': verified, 'media': media }
 
                 tweet1['text'] = clean_list(tweet1['text'])
                 tweet1['text'] = strip_emoji(tweet1['text'])
@@ -135,15 +117,10 @@ class APIStreamListener(StreamListener):
         print("You are now connected to the streaming API.")
 
     def on_data(self, raw_data):
-        global client
         client = MongoClient('127.0.0.1', 27017)
-        global db_name
         db_name = "TwitterDump"  # set-up a MongoDatabase
-        global db
         db = client[db_name]
-        global coll_name
-        coll_name = 'March18th'  # here we create a collection
-        global collection
+        coll_name = 'March21th'  # here we create a collection
         collection = db[coll_name]
 
         if (time.time() - self.start_time) < self.limit:
@@ -169,10 +146,6 @@ class APIStreamListener(StreamListener):
 if __name__ == '__main__':
     twitter_streamer = TwitterStreamer()
     twitter_streamer.stream_tweets()
-
-    #part_one()
-    # print(count_tweets)
-    # print(count_rt)
 
 
 
