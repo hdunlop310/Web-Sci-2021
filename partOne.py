@@ -15,7 +15,8 @@ def part_one():
     images = 0
 
     for x in db.cluster0.find({}, {'text': 1}):
-        if x['text'][0:2] == 'RT':
+        print(x['text'][0:2])
+        if x['text'][0:2] == "RT":
             count_rt += 1
 
         if x['text'][0:1] == "'":

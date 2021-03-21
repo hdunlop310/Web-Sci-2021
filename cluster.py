@@ -18,7 +18,7 @@ all_stopwords.extend(more_stop_words)
 
 with client:
     db = client["TwitterDump"]
-    collection = db.March21st.find({}, {'username': 1, 'text': 1, 'geoenabled':1, 'location':1, 'verified':1, 'media':1})
+    collection = db.March21New.find({}, {'username': 1, 'text': 1, 'geoenabled':1, 'location':1, 'verified':1, 'media':1})
     tweets = []
     users = []
     geoenabled = []
@@ -68,6 +68,8 @@ print(tweet_col.sort_values(by=['cluster']))
 
 
 results = {'clusters': labels, 'tweets': tweets, 'users': users, 'geoenabled': geoenabled, 'locations': locations, 'verified': verified, 'media': media}
+
+print(results)
 
 cluster0 = db['cluster0']
 cluster1 = db['cluster1']

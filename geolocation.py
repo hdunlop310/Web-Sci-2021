@@ -7,7 +7,7 @@ def get_locations():
 
     with client:
         db = client["TwitterDump"]
-        locations = db.March18th.distinct('location')
+        locations = db.March21New.distinct('location')
 
     for location in locations:
         locations.remove(location)
@@ -64,7 +64,7 @@ def plot_cities_graph():
             if city in location:
                 cities.append(city)
 
-    pd.Series(cities).value_counts().plot(kind='pie', title='Geographical Breakdown: Cities')
+    pd.Series(cities).value_counts().plot(kind='pie', title='Geographical Breakdown: Cities', legend=True, labels=None)
 
 
 def plot_country_graph():
@@ -77,7 +77,7 @@ def plot_country_graph():
             if country in location:
                 countries.append(country)
 
-    pd.Series(countries).value_counts().plot(kind='pie', title='Geographical Breakdown: Countries')
+    pd.Series(countries).value_counts().plot(kind='pie', title='Geographical Breakdown: Countries', legend=True, labels=None)
 
 
 def plot_towns_graph():
@@ -90,7 +90,7 @@ def plot_towns_graph():
             if town in location:
                 towns.append(town)
 
-    pd.Series(towns).value_counts().plot(kind='pie', title='Geographical Breakdown: Towns')
+    pd.Series(towns).value_counts().plot(kind='pie', title='Geographical Breakdown: Towns',  legend=True, labels=None)
 
 
 def plot_county_graph():
@@ -103,11 +103,12 @@ def plot_county_graph():
             if county in location:
                 counties.append(county)
 
-    pd.Series(counties).value_counts().plot(kind='pie', title='Geographical Breakdown: Counties')
+    pd.Series(counties).value_counts().plot(kind='pie', title='Geographical Breakdown: Counties', legend=True, labels=None)
 
 
 if __name__ == '__main__':
-    # plot_cities_graph()
-    # plot_country_graph()
-    # plot_towns_graph()
-    plot_county_graph()
+    #plot_cities_graph()
+    #plot_country_graph()
+    #plot_towns_graph()
+    #plot_county_graph()
+    pass

@@ -166,7 +166,7 @@ class APIStreamListener(StreamListener):
     Basic listener class
     """
 
-    def __init__(self, time_limit=7200):
+    def __init__(self, time_limit=3600):
         self.start_time = time.time()
         self.limit = time_limit
         super(StreamListener, self).__init__()
