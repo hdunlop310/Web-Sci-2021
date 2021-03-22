@@ -7,7 +7,7 @@ def get_locations():
 
     with client:
         db = client["TwitterDump"]
-        locations = db.March21New.distinct('location')
+        locations = db.cluster0Enhanced.distinct('location')
 
     for location in locations:
         locations.remove(location)
