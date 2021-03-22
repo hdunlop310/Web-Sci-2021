@@ -14,7 +14,7 @@ def get_location():
 
 
 def read_keywords():
-    with open('keywords.txt', 'r') as f:
+    with open('reducedKeywords.txt', 'r') as f:
         keywords = f.readlines()
     return keywords
 
